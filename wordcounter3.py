@@ -27,18 +27,18 @@ class MRWordCount(MRJob):
 				for x in list(root.iter()):
 					if x.tag == 'text':
 						extract = x.text
-				par_text = mwparserfromhell.parse(extract)
-				for template in par_text.filter_templates():
-				    par_text.remove(template)
-				for wikilink in par_text.filter_wikilinks():
-				    par_text.remove(wikilink)
-				for external_link in par_text.filter_external_links():
-				    par_text.remove(external_link)
-				for tag in par_text.filter_tags():
-				    par_text.remove(tag)
+						par_text = mwparserfromhell.parse(extract)
+						for template in par_text.filter_templates():
+						    par_text.remove(template)
+						for wikilink in par_text.filter_wikilinks():
+						    par_text.remove(wikilink)
+						for external_link in par_text.filter_external_links():
+						    par_text.remove(external_link)
+						for tag in par_text.filter_tags():
+						    par_text.remove(tag)
 
-				for word in WORD_RE.findall(par_text):
-					yield (word.lower(), 1)
+						for word in WORD_RE.findall(str(par_text)):
+							yield (word.lower(), 1)
 				self.text_chunk = ''
 			except:
 				pass
